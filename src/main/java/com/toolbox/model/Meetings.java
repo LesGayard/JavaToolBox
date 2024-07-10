@@ -1,4 +1,4 @@
-package com.toolbox.toolboxjava.model;
+package com.toolbox.model;
 
 public class Meetings {
 }
