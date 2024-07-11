@@ -1,15 +1,15 @@
 package com.toolbox.model;
 
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
 import lombok.Data;
-import org.springframework.data.relational.core.mapping.Table;
 
 import java.util.Date;
 
 @Data
+@Entity
 @Table(name = "calendar")
 public class Calendar {
+    @Id
     private int id;
     private Date date;
 
@@ -17,7 +17,10 @@ public class Calendar {
     @JoinColumn(name = "note_pk")
     private int note;
 
-    @ManyToOne(targetEntity = Meetings.class)
+
+    /*  ******************************************************************
+    * *******************TO DO: FIX MEETING RELATION ***************************************************************/
+    /*@ManyToOne(targetEntity = Meetings.class)
     @JoinColumn(name = "meeting_pk")
-    private int meeting;
+    private int meeting;*/
 }

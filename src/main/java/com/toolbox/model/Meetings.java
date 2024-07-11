@@ -1,5 +1,7 @@
 package com.toolbox.model;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import lombok.Data;
@@ -9,9 +11,10 @@ import java.util.Date;
 
 
 @Data
+@Entity
 @Table(name = "meetings")
 public class Meetings {
-
+    @Id
     private int id;
     private Date date;
     private String name;

@@ -1,22 +1,24 @@
 package com.toolbox.model;
 
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.*;
 import lombok.Data;
-import org.springframework.data.relational.core.mapping.Table;
+
 
 @Data
+@Entity
 @Table(name = "contacts")
 public class Contact {
+    @Id
     private int id;
     private String firstname;
     private String name;
     private String email;
 
-    @OneToMany
+    /*************************************************************
+     * ********************************TO DO : FIX RELATION MEETINGS ******************************************/
+    /*@OneToMany
     @JoinColumn(name="meetings_pk")
-    private int meetings;
+    private List<Meetings> meetings;*/
 
     @ManyToOne(targetEntity = Contact.class)
     @JoinColumn(name = "contact_meeting_fk")
