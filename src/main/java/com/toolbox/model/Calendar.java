@@ -7,17 +7,17 @@ import org.springframework.data.relational.core.mapping.Table;
 
 import java.util.Date;
 
-
 @Data
-@Table(name = "meetings")
-public class Meetings {
-
+@Table(name = "calendar")
+public class Calendar {
     private int id;
     private Date date;
-    private String name;
-    private boolean contact;
-    private String object;
-    @ManyToOne(targetEntity = Contact.class)
-    @JoinColumn(name = "contact_meeting_fk")
-    private int contactMeeting;
+
+    @ManyToOne(targetEntity = Notes.class)
+    @JoinColumn(name = "note_pk")
+    private int note;
+
+    @ManyToOne(targetEntity = Meetings.class)
+    @JoinColumn(name = "meeting_pk")
+    private int meeting;
 }
