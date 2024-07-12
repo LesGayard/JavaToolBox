@@ -1,9 +1,14 @@
 package com.toolbox.services;
 
+import com.toolbox.model.Meetings;
 import com.toolbox.repository.MeetingsRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 @Service
 public class MeetingServices {
@@ -11,10 +16,10 @@ public class MeetingServices {
     private MeetingsRepository repository;
     Logger logger = LoggerFactory.getLogger(MeetingServices.class);
 
-    /*public List<Meetings> getAllByDate(){
+    public List<Meetings> getAllByDate(Date date){
         logger.info("List Meetings Service");
         List<Meetings> meetingList = new ArrayList<>();
-        meetingList = repository.findAllByDateOrderByDateDesc();
+        meetingList = repository.findMeetingsByDateOrderByDateDesc(date);
         return meetingList;
     }
 
@@ -22,7 +27,7 @@ public class MeetingServices {
         Meetings meeting = null;
         logger.info("Service meeting Get by Date");
         logger.info("input : " + date.toString());
-        meeting = repository.findMeetingByDate(date);
+        meeting = repository.findMeetingsByDate(date);
         return meeting;
     }
 
@@ -61,13 +66,13 @@ public class MeetingServices {
 
     public void deleteMeeting(Meetings meeting){
         logger.info("Delete Entity Meeting : " + meeting.toString());
-        repository.deleteByMeetingId((long) meeting.getId());
+        repository.deleteMeetingsById(Long.valueOf(meeting.getId()));
         try{
-            repository.findMeetingsByMeetingId((long) meeting.getId());
+            repository.findMeetingsById(Long.valueOf(meeting.getId()));
         }catch (Exception e){
             logger.info("Exception catched success remove : "+  e);
         }
     }
-*/
+
 
 }
