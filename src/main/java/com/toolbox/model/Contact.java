@@ -2,9 +2,15 @@ package com.toolbox.model;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+
+import java.util.List;
 
 
 @Data
+@Getter
+@Setter
 @Entity
 @Table(name = "contacts")
 public class Contact {
@@ -16,9 +22,9 @@ public class Contact {
 
     /*************************************************************
      * ********************************TO DO : FIX RELATION MEETINGS ******************************************/
-    /*@OneToMany
+    @OneToMany
     @JoinColumn(name="meetings_pk")
-    private List<Meetings> meetings;*/
+    private List<Meetings> meetings;
 
     @ManyToOne(targetEntity = Contact.class)
     @JoinColumn(name = "contact_meeting_fk")

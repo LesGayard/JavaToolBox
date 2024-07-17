@@ -1,14 +1,9 @@
 package com.toolbox.services;
 
-import com.toolbox.model.Meetings;
 import com.toolbox.repository.MeetingsRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
 
 @Service
 public class MeetingServices {
@@ -16,7 +11,7 @@ public class MeetingServices {
     private MeetingsRepository repository;
     Logger logger = LoggerFactory.getLogger(MeetingServices.class);
 
-    public List<Meetings> getAllByDate(Date date){
+   /* public List<Meetings> getAllByDate(Date date){
         logger.info("List Meetings Service");
         List<Meetings> meetingList = new ArrayList<>();
         meetingList = repository.findMeetingsByDateOrderByDateDesc(date);
@@ -24,16 +19,16 @@ public class MeetingServices {
     }
 
     public Meetings getMeetingByDate(Date date){
-        Meetings meeting = null;
+        Meetings meeting = new Meetings();
         logger.info("Service meeting Get by Date");
         logger.info("input : " + date.toString());
         meeting = repository.findMeetingsByDate(date);
         return meeting;
     }
 
-    public Meetings createOrUpdate(Meetings meeting){
+    /*public Meetings createOrUpdate(Meetings meeting){
         logger.info("Public create update meeting service");
-        Meetings change = null;
+        Meetings change = new Meetings();
         if (!repository.existsById((int) meeting.getId())){
             change = addMeeting(meeting);
         }else {
@@ -41,11 +36,11 @@ public class MeetingServices {
         }
         logger.info("Before return create update meeting service : " + change.toString());
         return change;
-    }
+    }*/
 
-    private Meetings addMeeting(Meetings meeting){
+   /* private Meetings addMeeting(Meetings meeting){
         logger.info("Private Create Service Meeting");
-        Meetings meetingCreated = null;
+        Meetings meetingCreated = new Meetings();
         logger.info("Meeting to create init null: " + meetingCreated.getDate());
         meetingCreated.setDate(new Date());
 
@@ -72,7 +67,7 @@ public class MeetingServices {
         }catch (Exception e){
             logger.info("Exception catched success remove : "+  e);
         }
-    }
+    }*/
 
 
 }
