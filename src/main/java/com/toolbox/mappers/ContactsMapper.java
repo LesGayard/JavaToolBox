@@ -7,5 +7,7 @@ import org.mapstruct.MappingTarget;
 
 @Mapper
 public interface ContactsMapper {
+    Contact dtoToEntity(ContactDto dto);
+    ContactDto entityToDto(Contact entity);
     void updateEntityFromDto(ContactDto dto, @MappingTarget Contact entity);
 }

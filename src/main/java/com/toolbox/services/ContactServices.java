@@ -1,6 +1,7 @@
 package com.toolbox.services;
 
 import com.toolbox.dto.ContactDto;
+import com.toolbox.mappers.ContactsMapper;
 import com.toolbox.model.Contact;
 import com.toolbox.repository.ContactRepository;
 import org.slf4j.Logger;
@@ -11,23 +12,31 @@ import org.springframework.stereotype.Service;
 public class ContactServices {
 
     private ContactRepository repository;
+    private ContactsMapper mapper;
     Logger logger = LoggerFactory.getLogger(com.toolbox.services.ContactServices.class);
 
-    private Contact addContact(ContactDto dto){
-        Contact contact = new Contact();
+    public void addUpdate(ContactDto dto){
+        logger.info("Public Contact Service Add Update");
+        logger.info("Input : " + dto.toString());
+        if(repository.findById(dto.id()) != null){
+            updateContact(dto);
+        }else {
+            addContact(dto);
+        }
+    }
+    private void addContact(ContactDto dto){
         logger.info("Private Contact Creation Service");
         logger.info("Input Contact : " + dto.toString());
-        Contact created = repository.save(contact);
-        logger.info("Before Return : " + created.toString());
-        return created;
+        Contact contact = mapper.dtoToEntity(dto);
+        logger.info("Entity Converted : " + contact.toString());
+        repository.save(contact);
     }
 
-    private Contact updateContact(Contact contact){
-
+    private void updateContact(ContactDto dto){
         logger.info("Private Contact Update Service");
-        logger.info("Input to Update : "  );
-        Contact updated = null;
-        return updated;
-
+        logger.info("Input to Update : " + dto.toString() );
+        Contact updated = repository.findById(dto.id());
+        logger.info("Entity found : " + updated.toString());
+        mapper.updateEntityFromDto(dto,updated);
     }
 }
