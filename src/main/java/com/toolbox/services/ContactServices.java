@@ -8,6 +8,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class ContactServices {
 
@@ -15,6 +17,20 @@ public class ContactServices {
     private ContactsMapper mapper;
     Logger logger = LoggerFactory.getLogger(com.toolbox.services.ContactServices.class);
 
+    public List<Contact> getAll(){
+        logger.info("Public Contact Service Get All");
+        return repository.findAll();
+    }
+
+    private Contact searchName(String name, String email){
+        logger.info("Private Contact Service Search Firstname / name");
+        return repository.getContactsByFirstnameIsLikeIgnoreCaseOrNameIsLikeIgnoreCase(name, email);
+    }
+
+    private Contact searchEmail(String email){
+        logger.info("Private Contact Service Search email");
+        return repository.getContactsByEmailIsLikeIgnoreCase(email);
+    }
     public void addUpdate(ContactDto dto){
         logger.info("Public Contact Service Add Update");
         logger.info("Input : " + dto.toString());
@@ -29,6 +45,8 @@ public class ContactServices {
         logger.info("Input Contact : " + dto.toString());
         Contact contact = mapper.dtoToEntity(dto);
         logger.info("Entity Converted : " + contact.toString());
+        /* TO DO  : fix dates */
+       // contact.setCreation(new Date());
         repository.save(contact);
     }
 
@@ -38,5 +56,10 @@ public class ContactServices {
         Contact updated = repository.findById(dto.id());
         logger.info("Entity found : " + updated.toString());
         mapper.updateEntityFromDto(dto,updated);
+        //updated.setUpdate(new Date());
+        repository.saveAndFlush(updated);
     }
+
+
+
 }

@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.Date;
 import java.util.List;
 
 
@@ -18,6 +19,8 @@ public class Contact {
     private int id;
     private String firstname;
     private String name;
+    private Date creation;
+    private Date update;
     private String email;
 
     /*************************************************************
