@@ -4,62 +4,77 @@ import com.toolbox.dto.ContactDto;
 import com.toolbox.mappers.ContactsMapper;
 import com.toolbox.model.Contact;
 import com.toolbox.repository.ContactRepository;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.Builder;
+import lombok.NoArgsConstructor;
+import lombok.extern.log4j.Log4j2;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
+@Log4j2
 @Service
+@Builder
+@NoArgsConstructor
 public class ContactServices {
 
+    @Autowired
     private ContactRepository repository;
+    /* SINGLETON ??*/
     private ContactsMapper mapper;
-    Logger logger = LoggerFactory.getLogger(com.toolbox.services.ContactServices.class);
+
+    public ContactServices(ContactRepository repository, ContactsMapper mapper) {
+        this.repository = repository;
+        this.mapper = new ContactsMapper();
+    }
 
     public List<Contact> getAll(){
-        logger.info("Public Contact Service Get All");
-        return repository.findAll();
+        log.info("Public Contact Service Get All");
+        return (List<Contact>) repository.findAll();
     }
 
-    private Contact searchName(String name, String email){
-        logger.info("Private Contact Service Search Firstname / name");
-        return repository.getContactsByFirstnameIsLikeIgnoreCaseOrNameIsLikeIgnoreCase(name, email);
+
+    public Contact searchName(String name, String firstname){
+        log.info("Private Contact Service Search Firstname / name");
+        return repository.getContactsByFirstnameIsLikeIgnoreCaseOrNameIsLikeIgnoreCase(name, firstname);
     }
 
-    private Contact searchEmail(String email){
-        logger.info("Private Contact Service Search email");
+    public Contact searchEmail(String email){
+        log.info("Private Contact Service Search email");
         return repository.getContactsByEmailIsLikeIgnoreCase(email);
     }
     public void addUpdate(ContactDto dto){
-        logger.info("Public Contact Service Add Update");
-        logger.info("Input : " + dto.toString());
-        if(repository.findById(dto.id()) != null){
-            updateContact(dto);
-        }else {
-            addContact(dto);
-        }
+        log.info("Public Contact Service Add Update");
+        log.info("Input : " + dto.toString());
+       try{
+           addContact(dto);
+       }catch (Exception e){
+           log.error(e.getLocalizedMessage());
+       }
     }
+
     private void addContact(ContactDto dto){
-        logger.info("Private Contact Creation Service");
-        logger.info("Input Contact : " + dto.toString());
+        log.info("Private Contact Creation Service");
+        log.info("Input Contact : " + dto.toString());
         Contact contact = mapper.dtoToEntity(dto);
-        logger.info("Entity Converted : " + contact.toString());
+        log.info("Entity Converted : " + contact.toString());
         /* TO DO  : fix dates */
-       // contact.setCreation(new Date());
+        contact.setCreation(new Date());
         repository.save(contact);
     }
 
     private void updateContact(ContactDto dto){
-        logger.info("Private Contact Update Service");
-        logger.info("Input to Update : " + dto.toString() );
-        Contact updated = repository.findById(dto.id());
-        logger.info("Entity found : " + updated.toString());
-        mapper.updateEntityFromDto(dto,updated);
-        //updated.setUpdate(new Date());
-        repository.saveAndFlush(updated);
+        log.info("Private Contact Update Service");
+        log.info("Input to Update : " + dto.toString() );
+        Optional<Contact> updated = repository.findById((long) dto.id());
+        log.info("Entity found : " + updated.get().toString());
+        mapper.entityToDto(updated.orElse(null));
+        updated.get().setUpdate(new Date());
+        /* FIX UPDATE */
+        //repository.saveAndFlush()
     }
-
 
 
 }
