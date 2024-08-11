@@ -4,31 +4,22 @@ import com.toolbox.dto.ContactDto;
 import com.toolbox.mappers.ContactsMapper;
 import com.toolbox.model.Contact;
 import com.toolbox.repository.ContactRepository;
-import lombok.Builder;
-import lombok.NoArgsConstructor;
-import lombok.extern.log4j.Log4j2;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
-@Log4j2
+
+@Slf4j
 @Service
-@Builder
-@NoArgsConstructor
 public class ContactServices {
 
-    @Autowired
     private ContactRepository repository;
     /* SINGLETON ??*/
-    private ContactsMapper mapper;
+    private ContactsMapper mapper = new ContactsMapper();
 
-    public ContactServices(ContactRepository repository, ContactsMapper mapper) {
-        this.repository = repository;
-        this.mapper = new ContactsMapper();
-    }
 
     public List<Contact> getAll(){
         log.info("Public Contact Service Get All");
@@ -43,7 +34,7 @@ public class ContactServices {
 
     public Contact searchEmail(String email){
         log.info("Private Contact Service Search email");
-        return repository.getContactsByEmailIsLikeIgnoreCase(email);
+        return repository.getContactsByEmailIsLike(email);
     }
     public void addUpdate(ContactDto dto){
         log.info("Public Contact Service Add Update");

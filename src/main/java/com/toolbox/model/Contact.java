@@ -15,7 +15,7 @@ import java.util.List;
 public class Contact {
 
     @Id
-    private int id;
+    private Long id;
     private String firstname;
     private String name;
     private Date creation;

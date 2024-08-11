@@ -3,16 +3,14 @@ package com.toolbox.scanners;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.stereotype.Service;
-
-import java.util.Scanner;
 @Service
 @Getter
 @Setter
-public class AdminScanner {
+public class AdminScanner {}
 
-    private Scanner scanner = new Scanner(System.in);
+  /*  private Scanner scanner = new Scanner(System.in);
     /* TO DO : SINGLETON BETTER */
-    private ContactScanner contactScanner = new ContactScanner();
+   /* private ContactScanner contactScanner = new ContactScanner();
 
 
     public void  run(){System.out.println("****************************************************************************");
@@ -53,7 +51,7 @@ public class AdminScanner {
                 System.out.println("***MENU 3 - NOTES ****************************************");
                 System.out.println("*************CHOOSE TYPE NOTE ***************************************");
                 /*  TO DO :  FIX CHOICE AUDIO AND BASIC NOTE */
-                break;
+              /*  break;
             case 4:
                 System.out.println("***MENU 4 - AUTOMOTIVE ****************************************");
                 System.out.println("****************************************************************************");
@@ -98,3 +96,4 @@ public class AdminScanner {
 
 
 }
+*/

@@ -9,10 +9,7 @@ public class JavaToolBoxApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(JavaToolBoxApplication.class, args);
-       /*AdminScanner adminScanner = new AdminScanner();
-        System.out.println("****************************************************************************");
-        adminScanner.run();*/
-
+        /* API CREATION FOR SCANNER PROJECT */
 
     }
 

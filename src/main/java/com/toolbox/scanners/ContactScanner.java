@@ -1,20 +1,13 @@
 package com.toolbox.scanners;
 
-import com.toolbox.dto.ContactDto;
-import com.toolbox.model.Contact;
-import com.toolbox.services.ContactServices;
 import lombok.Data;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
-
-import java.util.Scanner;
 
 @Data
 @Service
 public class ContactScanner {
 
-    Logger logger = LoggerFactory.getLogger(ContactScanner.class);
+  /*  Logger logger = LoggerFactory.getLogger(ContactScanner.class);
     ContactServices services = ContactServices.builder().build();
     private Scanner scanner = new Scanner(System.in);
 
@@ -49,5 +42,5 @@ public class ContactScanner {
 
 
 
-   }
+   }*/
 }
